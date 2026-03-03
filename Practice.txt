@@ -1,8 +1,17 @@
-name: code coverage
+name: build
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main, staging
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: 'The reason for running the workflow'
+required: true
+default: 'Manual run'
+# additional events omitted for brevity
+jobs:
+build:
+runs-on: ubuntu-latest
+steps:- name: 'Print manual run reason'
+if: ${{ github.event_name == 'workflow_dispatch' }}
+run: |
+echo 'Reason: ${{ github.event.inputs.reason }}'
+# additional steps omitted for brevit
